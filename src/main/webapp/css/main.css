@@ -1,9 +1,9 @@
 .carousel-item{
-    height: 200px;
+    height: 500px;
 }
 .card-img-top{
     width: 100%;
-    height: 200px;
+    height: 400px;
     object-fit: cover;
     background: gray;
 }
@@ -22,4 +22,25 @@
     display: -webkit-box;
     -webkit-line-clamp: 2; /* number of lines to show */
     -webkit-box-orient: vertical;
+}
+
+.movie-cast{
+    height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.movie-poster{
+    width: 100%;
+    background: gray;
+    max-height: 600px;
+    min-height: 300px;
+    object-fit: cover;
+}
+
+[class*='mdl-shadow']{
+    box-shadow: none;
 }

@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/templates/index.html" value="file://$PROJECT_DIR$/src/main/webapp/templates" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/templates/movie.html" value="file://$PROJECT_DIR$/src/main/webapp/templates" />
       </map>
     </option>
   </component>

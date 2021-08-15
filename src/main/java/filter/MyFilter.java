@@ -30,7 +30,7 @@ public class MyFilter implements Filter {
     }
 
     private boolean process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (request.getRequestURI().startsWith("/css") || request.getRequestURI().startsWith("/images") || request.getRequestURI().startsWith("/favicon"))
+        if (request.getRequestURI().startsWith("/css") || request.getRequestURI().startsWith("/images") || request.getRequestURI().startsWith("/favicon") || request.getRequestURI().startsWith("/js"))
             return false;
         IController controller = this.application.resolveControllerForRequest(request);
         ITemplateEngine templateEngine = this.application.templateEngine;

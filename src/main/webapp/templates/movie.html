@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/frontend::head}">
+    <link th:href="@{/css/main.css}" href="../css/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+
+<body>
+
+<header th:insert="~{fragments/frontend::navbar}"></header>
+
+<main class="container mt-3" th:object="${movie}">
+    <h1 th:text="*{title}">Movie Name</h1>
+    <span th:text="*{year}" class="text-primary">2017</span> - <span th:text="*{runtime}">88</span> mins <span th:if="*{rated!=null}" th:text="' - '+*{rated}"> - Rated</span>
+
+    <div class="row  mt-3">
+        <div class="col-md-8 order-md-1 order-2">
+            <hr>
+            🎞 <b>Genres:</b> <span class="text-primary" th:each="text,iterStat : *{genres}" th:text="${text}+ ${!iterStat.last ? ', ' : ''}">Action, Crime, Drama</span>
+
+            <div th:if="*{fullplot!=null}">
+                <hr>
+                <span th:text="*{fullplot}">Description</span>
+            </div>
+
+            <hr>
+            🎬 <b>Director:</b> <span class="text-primary" th:each="text,iterStat : *{directors}" th:text="${text}+ ${!iterStat.last ? ', ' : ''}">James</span>
+            <div th:if="*{writers!=null}">
+                <hr>
+                ✍ <b>Writers:</b> <span class="text-primary" th:each="text,iterStat : *{writers}" th:text="${text}+ ${!iterStat.last ? ', ' : ''}">David, Peter</span>
+            </div>
+            <hr>
+            🌟 <b>Stars:</b> <span class="text-primary" th:each="text,iterStat : *{cast}" th:text="${text}+ ${!iterStat.last ? ', ' : ''}">Tom Hanks, Leonardo</span>
+
+            <hr>
+            🌎 <b>Languages:</b> <span class="text-primary" th:each="text,iterStat : *{languages}" th:text="${text}+ ${!iterStat.last ? ', ' : ''}">Tom Hanks, Leonardo</span>
+            🗺 <b>Countries:</b> <span class="text-primary" th:each="text,iterStat : *{countries}" th:text="${text}+ ${!iterStat.last ? ', ' : ''}">USA, UK</span>
+
+            <hr>
+            🏆 <b>Awards:</b> <span th:text="*{awards.text}">Awards</span>
+
+            <div th:if="*{tomatoes.critic!=null}">
+                <hr>
+                🍅 <b>Tomatometer rating:</b> <span th:text="*{tomatoes.critic.rating}">8.8 </span> (<span th:text="*{tomatoes.critic.numReviews}">20</span> reviews)
+                🍿 <b>Audience rating:</b> <span th:text="*{tomatoes.viewer.rating}">8.8 </span> (<span th:text="*{tomatoes.viewer.numReviews}">20</span> reviews)
+            </div>
+
+            <div th:if="*{imdb.rating>0}">
+                <hr>
+                👍 <b>IMDB:</b> <span th:text="*{imdb.rating}">8.8 </span> (<span th:text="*{imdb.votes}">20</span> votes)
+            </div>
+
+            <hr>
+            <div class="card shadow-0 border mt-5" style="background-color: #f0f2f5;">
+                <div class="card-body p-4">
+                    <h5 class="mb-4"> Comments (<span th:text="${comments}">20</span>)</h5>
+                    <div class="form-outline mb-4">
+                        <form class="d-flex user d-none" method="post" th:action="@{/comment(action=addComment)}">
+                            <input type="hidden" th:value="*{id}" name="movie_id"/>
+                            <div class="flex-grow-1"><input type="text" class="form-control" name="comment" placeholder="Comment"/></div>
+                            <div class="ps-2">
+                                <button class="btn btn-outline-success" type="submit">Send</button>
+                            </div>
+                        </form>
+                        <div class="text-center guest">You must be <a href="#" data-bs-toggle="modal" data-bs-target="#modal-login">logged in</a> to post a comment.</div>
+                    </div>
+                    <div class="card" th:each="comment:${comments}">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <img th:src="@{/images/user.svg}" src="../images/user.svg" alt="avatar" width="40" height="40"/>
+                                <div class="d-flex flex-column ">
+                                    <p class="small m-0 ms-2"><span th:text="${comment.name}">Martha</span></p>
+                                    <p class="small m-0 ms-2 text-muted"><span th:text="${comment.email}">Martha@gmail.com</span></p>
+                                </div>
+                                <div class="flex-grow-1 text-end small m-0 ms-2 text-muted"><span th:text="${comment.getTimeAgo()}">32 mins ago</span></div>
+                            </div>
+
+                            <div class="mt-2"><span th:text="${comment.text}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 order-md-2 order-1">
+            <img class="movie-poster" src="../images/image1.jpg" th:src="*{poster}">
+        </div>
+    </div>
+</main>
+
+<footer th:insert="~{fragments/frontend::footer}">
+</footer>
+
+</body>
+</html>
